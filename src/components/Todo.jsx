@@ -45,7 +45,7 @@ const Todo = ({
     editTodo(id, e.target.value);
   }
   return (
-    <Card className="min-w-[70%]">
+    <Card className="">
       <div className="flex justify-between items-center">
         <CardHeader>
           <CardTitle

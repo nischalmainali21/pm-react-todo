@@ -25,20 +25,21 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
   }
   return (
     <div>
-      <div className="flex flex-col items-center gap-4">
+      <ul className="flex flex-col items-center gap-4">
         {todoList.length > 0 ? (
           todoList.map((todo) => (
-            <Todo
-              key={todo.id}
-              id={todo.id}
-              title={todo.title}
-              content={todo.content}
-              creationTime={todo.id}
-              handleRemoveTask={handleRemoveTask}
-              handleCompleteTask={handleCompleteTask}
-              editTodo={editTodo}
-              statusView={statusView}
-            />
+            <li key={todo.id} className="min-w-[70%]">
+              <Todo
+                id={todo.id}
+                title={todo.title}
+                content={todo.content}
+                creationTime={todo.id}
+                handleRemoveTask={handleRemoveTask}
+                handleCompleteTask={handleCompleteTask}
+                editTodo={editTodo}
+                statusView={statusView}
+              />
+            </li>
           ))
         ) : (
           <div>
@@ -47,7 +48,7 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
             }${" "}todos`}</h2>
           </div>
         )}
-      </div>
+      </ul>
     </div>
   );
 };
