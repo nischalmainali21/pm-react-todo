@@ -66,7 +66,7 @@ const Todo = ({
               checked={status !== "active"}
             />
           </div>
-          <CardHeader className="p-3">
+          <CardHeader className="p-3 flex flex-col space-y-1">
             <CardTitle
               // contentEditable="true"
               // onInput={(e) => handleChange(e, id)}
@@ -83,11 +83,11 @@ const Todo = ({
               </EditableText>
               {/* {title} */}
             </CardTitle>
-            <CardDescription>
-              <span className="flex gap-1 items-center text-center text-xs">
-                <span className=" opacity-70 ">{actualDate}</span>
-                <span>{content && content}</span>
-              </span>
+            <CardDescription className="text-xs">
+              <span>{content && content}</span>
+            </CardDescription>
+            <CardDescription className="text-xs">
+              <span className="opacity-70">{actualDate}</span>
             </CardDescription>
           </CardHeader>
         </div>
