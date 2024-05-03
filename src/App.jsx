@@ -1,10 +1,17 @@
 import { useState } from "react";
-import TodoForm from "./components/TodoForm";
+
 import TodoList from "./components/TodoList";
+import TodoAdd from "./components/TodoAdd";
+
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Plus } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { ListFilter } from "lucide-react";
+
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [todo, setTodo] = useState({ todoTitle: "", todoContent: "" });
@@ -39,35 +46,37 @@ function App() {
           <h1 className="text-3xl">To-Do</h1>
           <Separator />
           <div className=" flex flex-col gap-8">
-            {/* <TodoForm
-              todo={todo}
-              handleChange={handleChange}
-              addTodo={addTodo}
-            /> */}
-
             <div className="flex gap-2 items-center">
-              <Button className="flex gap-1 items-center">
-                <span>
-                  <Plus />
-                </span>
-                <span>New To-Do</span>
-              </Button>
-              <Button className="flex gap-1 items-center">
-                <span>
-                  <ListFilter />
-                </span>
-                <span>Filter</span>
-              </Button>
+              <TodoAdd
+                todo={todo}
+                handleChange={handleChange}
+                addTodo={addTodo}
+              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    className="flex gap-1 items-center"
+                    variant="secondary"
+                  >
+                    <span>
+                      <ListFilter />
+                    </span>
+                    <span>Filter</span>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent></PopoverContent>
+              </Popover>
             </div>
             {/* <div className="h-1 text-red-400">
               {titleError && "Title cannot be empty"}
             </div> */}
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <Button onClick={() => setStatusView("active")}>To Do</Button>
               <Button onClick={() => setStatusView("complete")}>
                 Completed
               </Button>
-            </div>
+            </div> */}
+            {/* TODO: calculate the data to provide as a varaible to remove conditional rendering of same component */}
             {statusView === "complete" ? (
               <TodoList
                 todoList={todoList.filter((item) => item.status === "complete")}
