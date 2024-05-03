@@ -46,17 +46,11 @@ function App() {
                 handleChange={handleChange}
                 addTodo={addTodo}
               />
-              <TodoFilter />
+              <TodoFilter
+                statusView={statusView}
+                setStatusView={setStatusView}
+              />
             </div>
-            {/* <div className="h-1 text-red-400">
-              {titleError && "Title cannot be empty"}
-            </div> */}
-            {/* <div className="flex items-center gap-3">
-              <Button onClick={() => setStatusView("active")}>To Do</Button>
-              <Button onClick={() => setStatusView("complete")}>
-                Completed
-              </Button>
-            </div> */}
             {/* TODO: calculate the data to provide as a varaible to remove conditional rendering of same component */}
             {statusView === "complete" ? (
               <TodoList

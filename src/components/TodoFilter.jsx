@@ -1,12 +1,23 @@
 import { useState } from "react";
 
+import { cn } from "@/lib/utils";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
 import { ListFilter } from "lucide-react";
+
+import { Check } from "lucide-react";
 
 const FILTEROPTIONS = [
   {
@@ -23,7 +34,7 @@ const FILTEROPTIONS = [
   },
 ];
 
-const TodoFilter = () => {
+const TodoFilter = ({ statusView, setStatusView }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -33,10 +44,47 @@ const TodoFilter = () => {
           <span>
             <ListFilter />
           </span>
-          <span>Filters</span>
+          <span>
+            {statusView
+              ? FILTEROPTIONS.find(
+                  (filterItem) => filterItem.value === statusView
+                )?.label
+              : "Filters"}
+          </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent></PopoverContent>
+      <PopoverContent>
+        <Command>
+          <CommandInput placeholder="Search Filter..." />
+          <CommandEmpty>No Filter Found.</CommandEmpty>
+          <CommandGroup>
+            {FILTEROPTIONS.map((filterItem) => (
+              <CommandItem
+                key={filterItem.value}
+                value={filterItem.value}
+                onSelect={(currentValue) => {
+                  // if it is empty or any other value, set the selected value
+                  // if the selected value is already selected, reset the value state
+                  setStatusView(
+                    currentValue === statusView ? "all" : currentValue
+                  );
+                  setOpen(false);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    statusView === FILTEROPTIONS.value
+                      ? "opacity-100"
+                      : "opacity-0"
+                  )}
+                />
+                {filterItem.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
     </Popover>
   );
 };
