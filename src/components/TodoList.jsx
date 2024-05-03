@@ -24,32 +24,31 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
     setTodoList(editedTodoList);
   }
   return (
-    <div>
-      <ul className="flex flex-col items-center gap-4">
-        {todoList.length > 0 ? (
-          todoList.map((todo) => (
-            <li key={todo.id} className="min-w-[70%]">
-              <Todo
-                id={todo.id}
-                title={todo.title}
-                content={todo.content}
-                creationTime={todo.id}
-                handleRemoveTask={handleRemoveTask}
-                handleCompleteTask={handleCompleteTask}
-                editTodo={editTodo}
-                statusView={statusView}
-              />
-            </li>
-          ))
-        ) : (
-          <div>
-            <h2 className="text-2xl ">{`You have no ${
-              statusView === "complete" ? "completed" : "remaining"
-            }${" "}todos`}</h2>
-          </div>
-        )}
-      </ul>
-    </div>
+    <ul className="flex flex-col  min-w-[70%] gap-4">
+      {todoList.length > 0 ? (
+        todoList.map((todo) => (
+          <li key={todo.id} className="">
+            <Todo
+              id={todo.id}
+              title={todo.title}
+              content={todo.content}
+              creationTime={todo.id}
+              handleRemoveTask={handleRemoveTask}
+              handleCompleteTask={handleCompleteTask}
+              editTodo={editTodo}
+              statusView={statusView}
+              status={todo.status}
+            />
+          </li>
+        ))
+      ) : (
+        <div>
+          <h2 className="text-2xl ">{`You have no ${
+            statusView === "complete" ? "completed" : "remaining"
+          }${" "}todos`}</h2>
+        </div>
+      )}
+    </ul>
   );
 };
 
