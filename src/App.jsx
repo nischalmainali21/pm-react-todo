@@ -3,14 +3,8 @@ import { useState } from "react";
 import TodoList from "./components/TodoList";
 import TodoAdd from "./components/TodoAdd";
 
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { ListFilter } from "lucide-react";
+import TodoFilter from "./components/TodoFilter";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -52,20 +46,7 @@ function App() {
                 handleChange={handleChange}
                 addTodo={addTodo}
               />
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    className="flex gap-1 items-center"
-                    variant="secondary"
-                  >
-                    <span>
-                      <ListFilter />
-                    </span>
-                    <span>Filter</span>
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent></PopoverContent>
-              </Popover>
+              <TodoFilter />
             </div>
             {/* <div className="h-1 text-red-400">
               {titleError && "Title cannot be empty"}
