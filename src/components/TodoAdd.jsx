@@ -18,8 +18,8 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
           <span>New To-Do</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="min-w-[500px]" side="bottom" align="start">
-        <div className="flex flex-col gap-4">
+      <PopoverContent className="min-w-[400px] " side="bottom" align="start">
+        <div className="flex flex-col gap-8">
           {/* <h3 className="text-xl">Create a new To-Do</h3> */}
           <div className="flex flex-col gap-3">
             <Input
@@ -37,7 +37,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
               name="todoContent"
               id="todoContent"
               placeholder="Notes"
-              className="min-h-9 py-0"
+              className=""
               value={todo.todoContent}
               onChange={(e) => handleChange(e)}
             />
