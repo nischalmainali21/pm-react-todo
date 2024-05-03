@@ -36,7 +36,6 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
               handleRemoveTask={handleRemoveTask}
               handleCompleteTask={handleCompleteTask}
               editTodo={editTodo}
-              statusView={statusView}
               status={todo.status}
             />
           </li>

@@ -37,7 +37,6 @@ const Todo = ({
   handleRemoveTask,
   handleCompleteTask,
   editTodo,
-  statusView,
   status,
 }) => {
   const dateCreated = new Date(creationTime);
@@ -52,25 +51,26 @@ const Todo = ({
   }
 
   return (
-    <Card className="">
+    <Card
+      className={cn(
+        status === "complete" ? "bg-muted text-muted-foreground" : ""
+      )}
+    >
       <div className="flex justify-between items-center">
         <div className="flex items-baseline">
           <div className="p-3">
-            {/* show checkbox ticked for complete status */}
-            {statusView === "complete" ? (
-              <div></div>
-            ) : (
-              <Checkbox
-                className="w-5 h-5"
-                onCheckedChange={() => handleCompleteTask(id)}
-              />
-            )}
+            {/* TODO: handle changing completed todo from complete state to active state */}
+            <Checkbox
+              className="w-5 h-5"
+              onCheckedChange={() => handleCompleteTask(id)}
+              checked={status !== "active"}
+            />
           </div>
           <CardHeader className="p-3">
             <CardTitle
               // contentEditable="true"
               // onInput={(e) => handleChange(e, id)}
-              className="p-2 pl-0"
+              className={cn("p-2 pl-0")}
             >
               <EditableText text={title}>
                 <Input
@@ -93,13 +93,13 @@ const Todo = ({
         </div>
         <div className="flex items-center gap-3 pr-6">
           <Button
-            variant="outline"
+            variant="ghost"
             size="icon"
             onClick={() => handleRemoveTask(id)}
+            className="group"
           >
-            <Trash2 className="w-4 h-4" />
+            <Trash2 className="w-4 h-4 group-hover:text-red-500" />
           </Button>
-          {/* todo:conditional render this button on the basis of viewstatus */}
         </div>
       </div>
     </Card>
