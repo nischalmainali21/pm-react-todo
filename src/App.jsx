@@ -43,11 +43,11 @@ function App() {
   return (
     <>
       <div className="flex items-center flex-col pt-8 ">
-        <div className="flex flex-col gap-6 min-w-[70%]">
+        <div className="flex flex-col gap-6 min-w-[70%] ">
           <h1 className="text-3xl">To-Do</h1>
           <Separator />
           <div className=" flex flex-col gap-8">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center ">
               <TodoAdd
                 todo={todo}
                 handleChange={handleChange}

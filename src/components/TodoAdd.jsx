@@ -18,7 +18,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
           <span>New To-Do</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="min-w-[500px]" side="bottom" align="start">
         <div className="flex flex-col gap-4">
           {/* <h3 className="text-xl">Create a new To-Do</h3> */}
           <div className="flex flex-col gap-3">
@@ -26,7 +26,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
               type="text"
               name="todoTitle"
               id="todoTitle"
-              placeholder="New to-do"
+              placeholder="Title"
               className=""
               value={todo.todoTitle}
               onChange={(e) => handleChange(e)}
