@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import TodoList from "./components/TodoList";
 import TodoAdd from "./components/TodoAdd";
+import TodoFilter from "./components/TodoFilter";
 
 import { Separator } from "@/components/ui/separator";
-import TodoFilter from "./components/TodoFilter";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -33,6 +33,13 @@ function App() {
     setTodo({ ...todo, [e.target.name]: e.target.value });
   }
 
+  const actualTodoList =
+    statusView === "complete"
+      ? todoList.filter((item) => item.status === "complete")
+      : statusView === "active"
+      ? todoList.filter((item) => item.status === "active")
+      : todoList;
+
   return (
     <>
       <div className="flex items-center flex-col pt-8 ">
@@ -51,20 +58,11 @@ function App() {
                 setStatusView={setStatusView}
               />
             </div>
-            {/* TODO: calculate the data to provide as a varaible to remove conditional rendering of same component */}
-            {statusView === "complete" ? (
-              <TodoList
-                todoList={todoList.filter((item) => item.status === "complete")}
-                setTodoList={setTodoList}
-                statusView={statusView}
-              />
-            ) : (
-              <TodoList
-                todoList={todoList.filter((item) => item.status === "active")}
-                setTodoList={setTodoList}
-                statusView={statusView}
-              />
-            )}
+            <TodoList
+              todoList={actualTodoList}
+              setTodoList={setTodoList}
+              statusView={statusView}
+            />
           </div>
         </div>
       </div>
