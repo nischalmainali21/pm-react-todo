@@ -12,8 +12,10 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
     const index = todoListCopy.findIndex((item) => item.id === id);
     if (todoListCopy[index]["status"] === "complete") {
       todoListCopy[index]["status"] = "active";
+      todoListCopy[index]["completedOnTime"] = -1;
     } else {
       todoListCopy[index]["status"] = "complete";
+      todoListCopy[index]["completedOnTime"] = Date.now();
     }
     setTodoList(todoListCopy);
   }
