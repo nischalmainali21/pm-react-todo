@@ -17,6 +17,7 @@ import { Plus } from "lucide-react";
 
 const TodoAdd = ({ todo, handleChange, addTodo }) => {
   const [dueDate, setDueDate] = useState();
+  const [open, setOpen] = useState(false);
 
   let actualDueDate = -1;
   if (dueDate) {
@@ -24,7 +25,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
   }
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button className="flex gap-1 items-center">
           <span>
@@ -72,6 +73,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
                     actualDueDate
                   );
                   setDueDate();
+                  setOpen(false);
                 }}
               >
                 Create
