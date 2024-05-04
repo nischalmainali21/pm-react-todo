@@ -1,6 +1,6 @@
 import EditableText from "./EditableText";
 
-import { cn } from "@/lib/utils";
+import { cn, formatMillisecondsToDate } from "@/lib/utils";
 
 import {
   Card,
@@ -38,12 +38,12 @@ const Todo = ({
   handleCompleteTask,
   editTodo,
   status,
+  completedOnTime,
 }) => {
-  const dateCreated = new Date(creationTime);
-  const day = dateCreated.getDate();
-  const monthNumber = dateCreated.getMonth();
-  const year = dateCreated.getFullYear();
-  const actualDate = `${String(day)} ${MonthNames[monthNumber]} ${year}`;
+  let actualCompletedDate;
+  if (status === "complete") {
+    actualCompletedDate = formatMillisecondsToDate(completedOnTime);
+  }
 
   function handleChange(e, id) {
     // editTodo(id, e.target.textContent);
@@ -83,11 +83,17 @@ const Todo = ({
               </EditableText>
               {/* {title} */}
             </CardTitle>
+            {content && (
+              <CardDescription className="text-xs">
+                <span>{content}</span>
+              </CardDescription>
+            )}
             <CardDescription className="text-xs">
-              <span>{content && content}</span>
-            </CardDescription>
-            <CardDescription className="text-xs">
-              <span className="opacity-70">{actualDate}</span>
+              {status === "complete" && (
+                <span className="opacity-70">
+                  Completed: {actualCompletedDate}
+                </span>
+              )}
             </CardDescription>
           </CardHeader>
         </div>

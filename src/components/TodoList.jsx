@@ -43,6 +43,7 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
               handleCompleteTask={handleCompleteTask}
               editTodo={editTodo}
               status={todo.status}
+              completedOnTime={todo.completedOnTime}
             />
           </li>
         ))
