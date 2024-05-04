@@ -44,6 +44,7 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
               editTodo={editTodo}
               status={todo.status}
               completedOnTime={todo.completedOnTime}
+              dueDate={todo.dueDate}
             />
           </li>
         ))

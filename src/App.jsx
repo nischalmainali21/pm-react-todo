@@ -12,7 +12,13 @@ function App() {
   const [statusView, setStatusView] = useState("active");
   const [titleError, setTitleError] = useState(false);
 
-  function addTodo(todoTitle, todoContent, todoStatus, completedOnTime = -1) {
+  function addTodo(
+    todoTitle,
+    todoContent,
+    todoStatus,
+    completedOnTime = -1,
+    dueDate = -1
+  ) {
     if (todoTitle.length < 1) {
       setTitleError(true);
       return;
@@ -22,6 +28,7 @@ function App() {
       title: todoTitle,
       content: todoContent,
       status: todoStatus,
+      dueDate: dueDate,
       completedOnTime: completedOnTime,
     };
 

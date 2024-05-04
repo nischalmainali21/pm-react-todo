@@ -39,6 +39,7 @@ const Todo = ({
   editTodo,
   status,
   completedOnTime,
+  dueDate,
 }) => {
   let actualCompletedDate;
   if (status === "complete") {
