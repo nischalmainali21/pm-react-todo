@@ -27,8 +27,19 @@ const Todo = ({
   dueDate,
 }) => {
   let actualCompletedDate;
+  let dueDateColor;
   if (status === "complete") {
     actualCompletedDate = formatMillisecondsToDate(completedOnTime);
+  }
+  if (status !== "complete") {
+    dueDateColor =
+      dueDate.toLowerCase() === "today"
+        ? "text-orange-600"
+        : dueDate.toLowerCase() === "tomorrow"
+        ? "text-yellow-600"
+        : dueDate.toLowerCase() === "yesterday"
+        ? "text-red-600"
+        : "";
   }
 
   function handleChange(e, id) {
@@ -79,7 +90,9 @@ const Todo = ({
 
             {/* due date */}
             {dueDate !== -1 && (
-              <CardDescription className="text-sm flex items-center gap-1">
+              <CardDescription
+                className={cn("text-sm flex items-center gap-1", dueDateColor)}
+              >
                 <CalendarIcon className="h-4 w-4" />
                 <span>{dueDate}</span>
               </CardDescription>
