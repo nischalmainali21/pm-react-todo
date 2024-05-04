@@ -10,7 +10,11 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
   function handleCompleteTask(id) {
     const todoListCopy = [...todoList];
     const index = todoListCopy.findIndex((item) => item.id === id);
-    todoListCopy[index]["status"] = "complete";
+    if (todoListCopy[index]["status"] === "complete") {
+      todoListCopy[index]["status"] = "active";
+    } else {
+      todoListCopy[index]["status"] = "complete";
+    }
     setTodoList(todoListCopy);
   }
 
