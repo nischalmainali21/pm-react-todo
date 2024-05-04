@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import DueDatePicker from "./DueDatePicker";
 
+import { getDateString } from "../lib/utils";
+
 import {
   Popover,
   PopoverContent,
@@ -12,10 +14,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 import { Plus } from "lucide-react";
-import { getDateString } from "../lib/utils";
 
 const TodoAdd = ({ todo, handleChange, addTodo }) => {
   const [dueDate, setDueDate] = useState();
+
+  let actualDueDate = -1;
+  if (dueDate) {
+    actualDueDate = getDateString(dueDate);
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -51,21 +58,21 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
           </div>
 
           <div className="flex justify-between items-center">
-            {/* TODO: a due date selector */}
             <div>
               <DueDatePicker dueDate={dueDate} setDueDate={setDueDate} />
             </div>
             <div className="">
               <Button
-                onClick={() =>
+                onClick={() => {
                   addTodo(
                     todo.todoTitle,
                     todo.todoContent,
                     "active",
                     -1,
-                    getDateString(dueDate)
-                  )
-                }
+                    actualDueDate
+                  );
+                  setDueDate();
+                }}
               >
                 Create
               </Button>

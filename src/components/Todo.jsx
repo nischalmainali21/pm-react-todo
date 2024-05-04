@@ -31,13 +31,13 @@ const Todo = ({
   if (status === "complete") {
     actualCompletedDate = formatMillisecondsToDate(completedOnTime);
   }
-  if (status !== "complete") {
+  if (status !== "complete" && dueDate !== -1) {
     dueDateColor =
-      dueDate.toLowerCase() === "today"
+      dueDate?.toLowerCase() === "today"
         ? "text-orange-600"
-        : dueDate.toLowerCase() === "tomorrow"
+        : dueDate?.toLowerCase() === "tomorrow"
         ? "text-yellow-600"
-        : dueDate.toLowerCase() === "yesterday"
+        : dueDate?.toLowerCase() === "yesterday"
         ? "text-red-600"
         : "";
   }
@@ -63,7 +63,7 @@ const Todo = ({
               checked={status !== "active"}
             />
           </div>
-          <CardHeader className="p-3 flex flex-col space-y-0">
+          <CardHeader className="p-1 flex flex-col space-y-0">
             <CardTitle
               // contentEditable="true"
               // onInput={(e) => handleChange(e, id)}
