@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { format, isToday, isYesterday, isTomorrow } from "date-fns";
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -47,4 +48,19 @@ export function formatMillisecondsToDate(milliseconds) {
   const formattedDate = `${dayPart}, ${hours}:${minutes} ${ampm}`;
 
   return formattedDate;
+}
+
+//for date-fns
+export function getDateString(date) {
+  let result;
+  if (isToday(date)) {
+    result = "Today";
+  } else if (isTomorrow(date)) {
+    result = "Tomorrow";
+  } else if (isYesterday(date)) {
+    result = "Yesterday";
+  } else {
+    result = format(date, "P");
+  }
+  return result;
 }

@@ -12,22 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { Trash2 } from "lucide-react";
-
-const MonthNames = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { Trash2, Calendar as CalendarIcon } from "lucide-react";
 
 const Todo = ({
   id,
@@ -67,7 +52,7 @@ const Todo = ({
               checked={status !== "active"}
             />
           </div>
-          <CardHeader className="p-3 flex flex-col space-y-1">
+          <CardHeader className="p-3 flex flex-col space-y-0">
             <CardTitle
               // contentEditable="true"
               // onInput={(e) => handleChange(e, id)}
@@ -84,18 +69,30 @@ const Todo = ({
               </EditableText>
               {/* {title} */}
             </CardTitle>
+
+            {/* notes */}
             {content && (
-              <CardDescription className="text-xs">
+              <CardDescription className="text-sm">
                 <span>{content}</span>
               </CardDescription>
             )}
-            <CardDescription className="text-xs">
-              {status === "complete" && (
+
+            {/* due date */}
+            {dueDate !== -1 && (
+              <CardDescription className="text-sm flex items-center gap-1">
+                <CalendarIcon className="h-4 w-4" />
+                <span>{dueDate}</span>
+              </CardDescription>
+            )}
+
+            {/* completed time */}
+            {status === "complete" && (
+              <CardDescription className="text-xs">
                 <span className="opacity-70">
                   Completed: {actualCompletedDate}
                 </span>
-              )}
-            </CardDescription>
+              </CardDescription>
+            )}
           </CardHeader>
         </div>
         <div className="flex items-center gap-3 pr-6">

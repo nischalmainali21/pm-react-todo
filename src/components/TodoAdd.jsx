@@ -1,3 +1,7 @@
+import { useState } from "react";
+
+import DueDatePicker from "./DueDatePicker";
+
 import {
   Popover,
   PopoverContent,
@@ -6,8 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+
 import { Plus } from "lucide-react";
+import { getDateString } from "../lib/utils";
+
 const TodoAdd = ({ todo, handleChange, addTodo }) => {
+  const [dueDate, setDueDate] = useState();
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -31,7 +39,6 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
               value={todo.todoTitle}
               onChange={(e) => handleChange(e)}
             />
-            {/* TODO:size of text area needs to increase with additional content, currently has a scroll bar */}
             <Textarea
               type="text"
               name="todoContent"
@@ -45,11 +52,19 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
 
           <div className="flex justify-between items-center">
             {/* TODO: a due date selector */}
-            <div>due date</div>
+            <div>
+              <DueDatePicker dueDate={dueDate} setDueDate={setDueDate} />
+            </div>
             <div className="">
               <Button
                 onClick={() =>
-                  addTodo(todo.todoTitle, todo.todoContent, "active")
+                  addTodo(
+                    todo.todoTitle,
+                    todo.todoContent,
+                    "active",
+                    -1,
+                    getDateString(dueDate)
+                  )
                 }
               >
                 Create
