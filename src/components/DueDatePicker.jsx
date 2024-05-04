@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { cn, getDateString } from "../lib/utils";
 
 import { Calendar as CalendarIcon } from "lucide-react";
@@ -10,8 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 const DueDatePicker = ({ dueDate, setDueDate }) => {
+  const [open, setOpen] = useState(false);
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}
@@ -28,7 +31,10 @@ const DueDatePicker = ({ dueDate, setDueDate }) => {
         <Calendar
           mode="single"
           selected={dueDate}
-          onSelect={setDueDate}
+          onSelect={(date) => {
+            setOpen(false);
+            setDueDate(date);
+          }}
           initialFocus
         />
       </PopoverContent>
