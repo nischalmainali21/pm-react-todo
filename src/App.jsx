@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [todo, setTodo] = useState({ todoTitle: "", todoContent: "" });
-  const [statusView, setStatusView] = useState("active");
+  const [statusView, setStatusView] = useState("all");
   const [titleError, setTitleError] = useState(false);
 
   function addTodo(
@@ -47,6 +47,18 @@ function App() {
       : statusView === "active"
       ? todoList.filter((item) => item.status === "active")
       : todoList;
+
+  if (statusView === "all") {
+    actualTodoList.sort((a, b) => {
+      if (a.status === "active" && b.status === "complete") {
+        return -1; // "active" comes before "complete"
+      } else if (a.status === "complete" && b.status === "active") {
+        return 1; // "complete" comes after "active"
+      } else {
+        return 0; // no change in order
+      }
+    });
+  }
 
   return (
     <>
