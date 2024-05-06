@@ -16,6 +16,7 @@ import { Plus } from "lucide-react";
 const TodoAdd = ({ todo, handleChange, addTodo }) => {
   const [dueDate, setDueDate] = useState();
   const [open, setOpen] = useState(false);
+  const [emptyTitleError, setEmptyTitleError] = useState(false);
 
   let actualDueDate = -1;
   if (dueDate) {
@@ -45,6 +46,11 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
               value={todo.todoTitle}
               onChange={(e) => handleChange(e)}
             />
+            <div>
+              {emptyTitleError && (
+                <span className="text-red-500">Title cannot be empty.</span>
+              )}
+            </div>
             <Textarea
               type="text"
               name="todoContent"
@@ -63,6 +69,10 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
             <div className="">
               <Button
                 onClick={() => {
+                  if (todo.todoTitle.length < 1) {
+                    setEmptyTitleError(true);
+                    return;
+                  }
                   addTodo(
                     todo.todoTitle,
                     todo.todoContent,
@@ -71,6 +81,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
                     actualDueDate
                   );
                   setDueDate();
+                  setEmptyTitleError(false);
                   setOpen(false);
                 }}
               >

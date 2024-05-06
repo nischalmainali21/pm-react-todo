@@ -13,13 +13,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { PencilLine } from "lucide-react";
 
 const TodoEdit = ({ id, orgTitle, orgContent, orgDueDate, editTodo }) => {
-  console.log("🚀 ~ TodoEdit ~ orgDueDate:", orgDueDate);
   const [open, setOpen] = useState(false);
   const [dueDate, setDueDate] = useState(orgDueDate === -1 ? null : orgDueDate);
   const [todo, setTodo] = useState({
     editedTodoTitle: orgTitle,
     editedTodoContent: orgContent,
   });
+  const [emptyTitleError, setEmptyTitleError] = useState(false);
 
   function handleChange(e) {
     setTodo({ ...todo, [e.target.name]: e.target.value });
@@ -44,6 +44,11 @@ const TodoEdit = ({ id, orgTitle, orgContent, orgDueDate, editTodo }) => {
               value={todo.editedTodoTitle}
               onChange={(e) => handleChange(e)}
             />
+            <div className="h-6">
+              {emptyTitleError && (
+                <span className="text-red-500">Title cannot be empty.</span>
+              )}
+            </div>
             <Textarea
               type="text"
               name="editedTodoContent"
@@ -62,12 +67,17 @@ const TodoEdit = ({ id, orgTitle, orgContent, orgDueDate, editTodo }) => {
             <div className="">
               <Button
                 onClick={() => {
+                  if (todo.editedTodoTitle.length < 1) {
+                    setEmptyTitleError(true);
+                    return;
+                  }
                   editTodo(
                     id,
                     todo.editedTodoTitle,
                     todo.editedTodoContent,
                     dueDate
                   );
+                  setEmptyTitleError(false);
                   setOpen(false);
                 }}
               >

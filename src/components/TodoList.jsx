@@ -31,6 +31,10 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
   }
 
   function editTodo(id, newTitle, newContent, newDueDate) {
+    //title cannot be empty
+    if (newTitle.length < 1) {
+      return;
+    }
     const editedTodoList = todoList.map((todo) => {
       if (id === todo.id) {
         return {
