@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import DueDatePicker from "./DueDatePicker";
 
-import { getDateString } from "../lib/utils";
-
 import {
   Popover,
   PopoverContent,
@@ -21,7 +19,7 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
 
   let actualDueDate = -1;
   if (dueDate) {
-    actualDueDate = getDateString(dueDate);
+    actualDueDate = dueDate;
   }
 
   return (
