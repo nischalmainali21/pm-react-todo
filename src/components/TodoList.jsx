@@ -20,12 +20,26 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
     setTodoList(todoListCopy);
   }
 
-  function editTodo(id, newContent) {
+  function editTodoTitle(id, newTitle) {
     const editedTodoList = todoList.map((todo) => {
       if (id === todo.id) {
-        return { ...todo, title: newContent };
+        return { ...todo, title: newTitle };
       }
       return todo;
+    });
+    setTodoList(editedTodoList);
+  }
+
+  function editTodo(id, newTitle, newContent, newDueDate) {
+    const editedTodoList = todoList.map((todo) => {
+      if (id === todo.id) {
+        return {
+          ...todo,
+          title: newTitle,
+          content: newContent,
+          dueDate: newDueDate,
+        };
+      }
     });
     setTodoList(editedTodoList);
   }
@@ -40,10 +54,11 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
               content={todo.content}
               handleRemoveTask={handleRemoveTask}
               handleCompleteTask={handleCompleteTask}
-              editTodo={editTodo}
+              editTodoTitle={editTodoTitle}
               status={todo.status}
               completedOnTime={todo.completedOnTime}
               dueDate={todo.dueDate}
+              editTodo={editTodo}
             />
           </li>
         ))

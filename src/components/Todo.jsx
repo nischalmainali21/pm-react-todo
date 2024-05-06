@@ -1,4 +1,5 @@
 import EditableText from "./EditableText";
+import TodoEdit from "./TodoEdit";
 
 import { cn, formatMillisecondsToDate } from "@/lib/utils";
 
@@ -20,10 +21,11 @@ const Todo = ({
   content,
   handleRemoveTask,
   handleCompleteTask,
-  editTodo,
+  editTodoTitle,
   status,
   completedOnTime,
   dueDate,
+  editTodo,
 }) => {
   let actualCompletedDate;
   let dueDateColor;
@@ -43,7 +45,7 @@ const Todo = ({
 
   function handleChange(e, id) {
     // editTodo(id, e.target.textContent);
-    editTodo(id, e.target.value);
+    editTodoTitle(id, e.target.value);
   }
 
   return (
@@ -111,6 +113,13 @@ const Todo = ({
           </CardHeader>
         </div>
         <div className="flex items-center gap-3 pr-6">
+          <TodoEdit
+            id={id}
+            orgTitle={title}
+            orgContent={content}
+            orgDueDate={dueDate}
+            editTodo={editTodo}
+          />
           <Button
             variant="ghost"
             size="icon"
