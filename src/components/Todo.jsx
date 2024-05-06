@@ -18,7 +18,6 @@ const Todo = ({
   id,
   title,
   content,
-  creationTime,
   handleRemoveTask,
   handleCompleteTask,
   editTodo,
@@ -67,7 +66,10 @@ const Todo = ({
             <CardTitle
               // contentEditable="true"
               // onInput={(e) => handleChange(e, id)}
-              className={cn("p-2 pl-0")}
+              className={cn(
+                "p-2 pl-0",
+                status === "complete" ? "font-medium" : ""
+              )}
             >
               <EditableText text={title}>
                 <Input

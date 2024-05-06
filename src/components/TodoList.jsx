@@ -38,7 +38,6 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
               id={todo.id}
               title={todo.title}
               content={todo.content}
-              creationTime={todo.id}
               handleRemoveTask={handleRemoveTask}
               handleCompleteTask={handleCompleteTask}
               editTodo={editTodo}
