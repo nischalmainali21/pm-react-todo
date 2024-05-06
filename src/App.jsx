@@ -10,7 +10,6 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [todo, setTodo] = useState({ todoTitle: "", todoContent: "" });
   const [statusView, setStatusView] = useState("all");
-  const [titleError, setTitleError] = useState(false);
 
   function addTodo(
     todoTitle,
@@ -20,7 +19,6 @@ function App() {
     dueDate = -1
   ) {
     if (todoTitle.length < 1) {
-      setTitleError(true);
       return;
     }
     const todo = {
@@ -33,7 +31,6 @@ function App() {
     };
 
     setTodoList((prevTodos) => [...prevTodos, todo]);
-    setTitleError(false);
     setTodo({ todoTitle: "", todoContent: "" });
   }
 

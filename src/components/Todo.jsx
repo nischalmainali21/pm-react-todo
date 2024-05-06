@@ -1,7 +1,7 @@
 import EditableText from "./EditableText";
 import TodoEdit from "./TodoEdit";
 
-import { cn, formatMillisecondsToDate } from "@/lib/utils";
+import { cn, formatMillisecondsToDate, getDateString } from "@/lib/utils";
 
 import {
   Card,
@@ -32,13 +32,15 @@ const Todo = ({
   if (status === "complete") {
     actualCompletedDate = formatMillisecondsToDate(completedOnTime);
   }
+
+  const dateString = getDateString(dueDate);
   if (status !== "complete" && dueDate !== -1) {
     dueDateColor =
-      dueDate?.toLowerCase() === "today"
+      dateString?.toLowerCase() === "today"
         ? "text-orange-600"
-        : dueDate?.toLowerCase() === "tomorrow"
+        : dateString?.toLowerCase() === "tomorrow"
         ? "text-yellow-600"
-        : dueDate?.toLowerCase() === "yesterday"
+        : dateString?.toLowerCase() === "yesterday"
         ? "text-red-600"
         : "";
   }
@@ -98,7 +100,7 @@ const Todo = ({
                 className={cn("text-sm flex items-center gap-1", dueDateColor)}
               >
                 <CalendarIcon className="h-4 w-4" />
-                <span>{dueDate}</span>
+                <span>{dateString}</span>
               </CardDescription>
             )}
 
