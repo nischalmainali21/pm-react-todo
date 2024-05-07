@@ -6,35 +6,58 @@ import TodoFilter from "./components/TodoFilter";
 
 import { Separator } from "@/components/ui/separator";
 
+export interface TodoType {
+  id: number;
+  title: string;
+  content: string;
+  status: "complete" | "active";
+  completedOnTime: Date | null;
+  dueDate: Date | null;
+}
+
+export type TodoInputType = Pick<TodoType, "title" | "content">;
+
+export type AddTodoFunction = (
+  todoTitle: string,
+  todoContent: string,
+  todoStatus: "complete" | "active",
+  completedOnTime: Date | null,
+  dueDate: Date | null
+) => void;
+
 function App() {
-  const [todoList, setTodoList] = useState([]);
-  const [todo, setTodo] = useState({ todoTitle: "", todoContent: "" });
+  const [todoList, setTodoList] = useState<TodoType[]>([]);
+  const [todo, setTodo] = useState<TodoInputType>({
+    title: "",
+    content: "",
+  });
   const [statusView, setStatusView] = useState("all");
 
   function addTodo(
-    todoTitle,
-    todoContent,
-    todoStatus,
-    completedOnTime = -1,
-    dueDate = -1
+    todoTitle: string,
+    todoContent: string,
+    todoStatus: "complete" | "active",
+    completedOnTime: Date | null = null,
+    dueDate: Date | null = null
   ) {
     if (todoTitle.length < 1) {
       return;
     }
-    const todo = {
+
+    const todo: TodoType = {
       id: Date.now(),
       title: todoTitle,
       content: todoContent,
-      status: todoStatus,
+      status: todoStatus as "complete" | "active",
       dueDate: dueDate,
       completedOnTime: completedOnTime,
     };
 
-    setTodoList((prevTodos) => [...prevTodos, todo]);
-    setTodo({ todoTitle: "", todoContent: "" });
+    setTodoList([...todoList, todo]);
+    setTodo({ title: "", content: "" });
   }
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTodo({ ...todo, [e.target.name]: e.target.value });
   }
 

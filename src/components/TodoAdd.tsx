@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import DueDatePicker from "./DueDatePicker";
+import { TodoInputType, AddTodoFunction } from "@/App";
 
 import {
   Popover,
@@ -13,12 +14,18 @@ import { Button } from "@/components/ui/button";
 
 import { Plus } from "lucide-react";
 
-const TodoAdd = ({ todo, handleChange, addTodo }) => {
-  const [dueDate, setDueDate] = useState();
+interface TodoAddProps {
+  todo: TodoInputType;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  addTodo: AddTodoFunction;
+}
+
+const TodoAdd = ({ todo, handleChange, addTodo }: TodoAddProps) => {
+  const [dueDate, setDueDate] = useState<Date | null>(null);
   const [open, setOpen] = useState(false);
   const [emptyTitleError, setEmptyTitleError] = useState(false);
 
-  let actualDueDate = -1;
+  let actualDueDate = null;
   if (dueDate) {
     actualDueDate = dueDate;
   }
@@ -39,12 +46,14 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
           <div className="flex flex-col gap-3">
             <Input
               type="text"
-              name="todoTitle"
-              id="todoTitle"
+              name="title"
+              id="title"
               placeholder="Title"
               className=""
-              value={todo.todoTitle}
-              onChange={(e) => handleChange(e)}
+              value={todo.title}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(e)
+              }
             />
             <div>
               {emptyTitleError && (
@@ -53,12 +62,14 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
             </div>
             <Textarea
               type="text"
-              name="todoContent"
-              id="todoContent"
+              name="content"
+              id="content"
               placeholder="Notes"
               className=""
-              value={todo.todoContent}
-              onChange={(e) => handleChange(e)}
+              value={todo.content}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(e)
+              }
             />
           </div>
 
@@ -69,18 +80,18 @@ const TodoAdd = ({ todo, handleChange, addTodo }) => {
             <div className="">
               <Button
                 onClick={() => {
-                  if (todo.todoTitle.length < 1) {
+                  if (todo.title.length < 1) {
                     setEmptyTitleError(true);
                     return;
                   }
                   addTodo(
-                    todo.todoTitle,
-                    todo.todoContent,
+                    todo.title,
+                    todo.content,
                     "active",
-                    -1,
+                    null,
                     actualDueDate
                   );
-                  setDueDate();
+                  setDueDate(null);
                   setEmptyTitleError(false);
                   setOpen(false);
                 }}
