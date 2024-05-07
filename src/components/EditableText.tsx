@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-const EditableText = ({ text, children }) => {
+interface EditableTextProps {
+  text: string;
+  children: React.ReactNode;
+}
+
+const EditableText = ({ text, children }: EditableTextProps) => {
   const [isEditing, setIsEditing] = useState(false);
   return (
     <>
