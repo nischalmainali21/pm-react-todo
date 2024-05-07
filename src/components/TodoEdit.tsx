@@ -16,7 +16,7 @@ interface TodoEditProps {
   id: number;
   orgTitle: string;
   orgContent: string;
-  orgDueDate: Date;
+  orgDueDate: Date | null;
   editTodo: (
     id: number,
     newTitle: string,
@@ -33,9 +33,8 @@ const TodoEdit = ({
   editTodo,
 }: TodoEditProps) => {
   const [open, setOpen] = useState(false);
-  const [dueDate, setDueDate] = useState(
-    orgDueDate === null ? null : orgDueDate
-  );
+  const [dueDate, setDueDate] = useState(orgDueDate);
+  console.log("🚀 ~ dueDate:", dueDate);
   const [todo, setTodo] = useState({
     editedTodoTitle: orgTitle,
     editedTodoContent: orgContent,
@@ -44,6 +43,11 @@ const TodoEdit = ({
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTodo({ ...todo, [e.target.name]: e.target.value });
+  }
+
+  let actualDueDate = null;
+  if (dueDate) {
+    actualDueDate = dueDate;
   }
 
   return (
@@ -100,7 +104,7 @@ const TodoEdit = ({
                     id,
                     todo.editedTodoTitle,
                     todo.editedTodoContent,
-                    dueDate
+                    actualDueDate
                   );
                   setEmptyTitleError(false);
                   setOpen(false);

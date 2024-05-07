@@ -38,6 +38,7 @@ const DueDatePicker = ({ dueDate, setDueDate }: DueDatePickerProps) => {
           mode="single"
           selected={dueDate}
           onSelect={(date: DueDateType) => {
+            console.log("🚀 ~ DueDatePicker ~ date:", date);
             setOpen(false);
             setDueDate(date);
           }}

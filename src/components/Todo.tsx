@@ -1,5 +1,6 @@
 import EditableText from "./EditableText";
 import TodoEdit from "./TodoEdit";
+import { TodoType } from "@/App";
 
 import { cn, formatMillisecondsToDate, getDateString } from "@/lib/utils";
 
@@ -15,6 +16,24 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { Trash2, Calendar as CalendarIcon } from "lucide-react";
 
+interface TodoProps {
+  id: TodoType["id"];
+  title: TodoType["title"];
+  content: TodoType["content"];
+  status: TodoType["status"];
+  completedOnTime: TodoType["completedOnTime"];
+  dueDate: TodoType["dueDate"];
+  handleRemoveTask: (id: TodoType["id"]) => void;
+  handleCompleteTask: (id: TodoType["id"]) => void;
+  editTodoTitle: (id: TodoType["id"], newTitle: TodoType["title"]) => void;
+  editTodo: (
+    id: TodoType["id"],
+    newTitle: TodoType["title"],
+    newContent: TodoType["content"],
+    newDueDate: TodoType["dueDate"]
+  ) => void;
+}
+
 const Todo = ({
   id,
   title,
@@ -26,7 +45,8 @@ const Todo = ({
   completedOnTime,
   dueDate,
   editTodo,
-}) => {
+}: TodoProps) => {
+  console.log("🚀 ~ dueDate:", dueDate);
   let actualCompletedDate;
   let dueDateColor;
   if (status === "complete") {
@@ -45,7 +65,10 @@ const Todo = ({
         : "";
   }
 
-  function handleChange(e, id) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: TodoType["id"]
+  ) {
     // editTodo(id, e.target.textContent);
     editTodoTitle(id, e.target.value);
   }
@@ -80,7 +103,9 @@ const Todo = ({
                   type="text"
                   name="todo"
                   value={title}
-                  onChange={(e) => handleChange(e, id)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleChange(e, id)
+                  }
                   className="h-8 focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-0"
                 />
               </EditableText>
@@ -99,6 +124,7 @@ const Todo = ({
               <CardDescription
                 className={cn("text-sm flex items-center gap-1", dueDateColor)}
               >
+                test
                 <CalendarIcon className="h-4 w-4" />
                 <span>{dateString}</span>
               </CardDescription>
