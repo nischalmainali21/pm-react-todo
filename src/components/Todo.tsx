@@ -46,7 +46,6 @@ const Todo = ({
   dueDate,
   editTodo,
 }: TodoProps) => {
-  console.log("🚀 ~ dueDate:", dueDate);
   let actualCompletedDate;
   let dueDateColor;
   if (status === "complete") {

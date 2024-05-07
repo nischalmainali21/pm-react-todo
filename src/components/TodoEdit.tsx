@@ -34,7 +34,6 @@ const TodoEdit = ({
 }: TodoEditProps) => {
   const [open, setOpen] = useState(false);
   const [dueDate, setDueDate] = useState(orgDueDate);
-  console.log("🚀 ~ dueDate:", dueDate);
   const [todo, setTodo] = useState({
     editedTodoTitle: orgTitle,
     editedTodoContent: orgContent,
