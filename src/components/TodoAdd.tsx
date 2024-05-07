@@ -20,8 +20,10 @@ interface TodoAddProps {
   addTodo: AddTodoFunction;
 }
 
+export type DueDateType = Date | null;
+
 const TodoAdd = ({ todo, handleChange, addTodo }: TodoAddProps) => {
-  const [dueDate, setDueDate] = useState<Date | null>(null);
+  const [dueDate, setDueDate] = useState<DueDateType>(null);
   const [open, setOpen] = useState(false);
   const [emptyTitleError, setEmptyTitleError] = useState(false);
 

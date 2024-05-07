@@ -7,7 +7,9 @@ interface TodoListProps {
   statusView: StatusViewType;
 }
 
-type IdType = Pick<TodoType, "id">;
+// type IdType = Pick<TodoType, "id">;
+
+// type IdType = TodoType["id"];
 
 const TodoList = ({ todoList, setTodoList, statusView }: TodoListProps) => {
   function handleRemoveTask(id: number) {

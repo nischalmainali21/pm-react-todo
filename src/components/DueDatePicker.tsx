@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DueDateType } from "./TodoAdd";
 
 import { cn, getDateString } from "../lib/utils";
 
@@ -11,7 +12,12 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 
-const DueDatePicker = ({ dueDate, setDueDate }) => {
+interface DueDatePickerProps {
+  dueDate: DueDateType;
+  setDueDate: React.Dispatch<React.SetStateAction<DueDateType>>;
+}
+
+const DueDatePicker = ({ dueDate, setDueDate }: DueDatePickerProps) => {
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -31,7 +37,7 @@ const DueDatePicker = ({ dueDate, setDueDate }) => {
         <Calendar
           mode="single"
           selected={dueDate}
-          onSelect={(date) => {
+          onSelect={(date: DueDateType) => {
             setOpen(false);
             setDueDate(date);
           }}
