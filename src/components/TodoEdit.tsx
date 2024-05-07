@@ -12,16 +12,37 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { PencilLine } from "lucide-react";
 
-const TodoEdit = ({ id, orgTitle, orgContent, orgDueDate, editTodo }) => {
+interface TodoEditProps {
+  id: number;
+  orgTitle: string;
+  orgContent: string;
+  orgDueDate: Date;
+  editTodo: (
+    id: number,
+    newTitle: string,
+    newContent: string,
+    newDueDate: Date | null
+  ) => void;
+}
+
+const TodoEdit = ({
+  id,
+  orgTitle,
+  orgContent,
+  orgDueDate,
+  editTodo,
+}: TodoEditProps) => {
   const [open, setOpen] = useState(false);
-  const [dueDate, setDueDate] = useState(orgDueDate === -1 ? null : orgDueDate);
+  const [dueDate, setDueDate] = useState(
+    orgDueDate === null ? null : orgDueDate
+  );
   const [todo, setTodo] = useState({
     editedTodoTitle: orgTitle,
     editedTodoContent: orgContent,
   });
   const [emptyTitleError, setEmptyTitleError] = useState(false);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTodo({ ...todo, [e.target.name]: e.target.value });
   }
 
@@ -42,7 +63,9 @@ const TodoEdit = ({ id, orgTitle, orgContent, orgDueDate, editTodo }) => {
               placeholder="Title"
               className=""
               value={todo.editedTodoTitle}
-              onChange={(e) => handleChange(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(e)
+              }
             />
             <div className="h-6">
               {emptyTitleError && (
@@ -56,7 +79,9 @@ const TodoEdit = ({ id, orgTitle, orgContent, orgDueDate, editTodo }) => {
               placeholder="Notes"
               className=""
               value={todo.editedTodoContent}
-              onChange={(e) => handleChange(e)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleChange(e)
+              }
             />
           </div>
 

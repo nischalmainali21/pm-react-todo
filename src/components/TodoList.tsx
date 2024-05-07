@@ -45,7 +45,7 @@ const TodoList = ({ todoList, setTodoList, statusView }: TodoListProps) => {
     id: number,
     newTitle: string,
     newContent: string,
-    newDueDate: Date
+    newDueDate: Date | null
   ) {
     //title cannot be empty
     if (newTitle.length < 1) {
