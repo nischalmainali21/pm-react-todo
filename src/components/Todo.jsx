@@ -33,8 +33,8 @@ const Todo = ({
     actualCompletedDate = formatMillisecondsToDate(completedOnTime);
   }
 
-  const dateString = getDateString(dueDate);
-  if (status !== "complete" && dueDate !== -1) {
+  const dateString = dueDate && getDateString(dueDate);
+  if (status !== "complete" && dueDate !== null) {
     dueDateColor =
       dateString?.toLowerCase() === "today"
         ? "text-orange-600"
@@ -95,7 +95,7 @@ const Todo = ({
             )}
 
             {/* due date */}
-            {dueDate !== -1 && (
+            {dueDate !== null && (
               <CardDescription
                 className={cn("text-sm flex items-center gap-1", dueDateColor)}
               >
