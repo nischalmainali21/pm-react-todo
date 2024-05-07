@@ -11,7 +11,7 @@ export interface TodoType {
   title: string;
   content: string;
   status: "complete" | "active";
-  completedOnTime: Date | null;
+  completedOnTime: number | null;
   dueDate: Date | null;
 }
 
@@ -21,7 +21,7 @@ export type AddTodoFunction = (
   todoTitle: string,
   todoContent: string,
   todoStatus: "complete" | "active",
-  completedOnTime: Date | null,
+  completedOnTime: number | null,
   dueDate: Date | null
 ) => void;
 
@@ -39,7 +39,7 @@ function App() {
     todoTitle: string,
     todoContent: string,
     todoStatus: "complete" | "active",
-    completedOnTime: Date | null = null,
+    completedOnTime: number | null = null,
     dueDate: Date | null = null
   ) {
     if (todoTitle.length < 1) {

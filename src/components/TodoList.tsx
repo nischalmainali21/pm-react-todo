@@ -1,18 +1,27 @@
 import Todo from "./Todo";
+import { TodoType, StatusViewType } from "@/App";
 
-const TodoList = ({ todoList, setTodoList, statusView }) => {
-  function handleRemoveTask(id) {
+interface TodoListProps {
+  todoList: TodoType[];
+  setTodoList: React.Dispatch<React.SetStateAction<TodoType[]>>;
+  statusView: StatusViewType;
+}
+
+type IdType = Pick<TodoType, "id">;
+
+const TodoList = ({ todoList, setTodoList, statusView }: TodoListProps) => {
+  function handleRemoveTask(id: number) {
     setTodoList((prevTodoList) =>
       prevTodoList.filter((todoItem) => todoItem.id !== id)
     );
   }
 
-  function handleCompleteTask(id) {
+  function handleCompleteTask(id: number) {
     const todoListCopy = [...todoList];
     const index = todoListCopy.findIndex((item) => item.id === id);
     if (todoListCopy[index]["status"] === "complete") {
       todoListCopy[index]["status"] = "active";
-      todoListCopy[index]["completedOnTime"] = -1;
+      todoListCopy[index]["completedOnTime"] = null;
     } else {
       todoListCopy[index]["status"] = "complete";
       todoListCopy[index]["completedOnTime"] = Date.now();
@@ -20,7 +29,7 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
     setTodoList(todoListCopy);
   }
 
-  function editTodoTitle(id, newTitle) {
+  function editTodoTitle(id: number, newTitle: string) {
     const editedTodoList = todoList.map((todo) => {
       if (id === todo.id) {
         return { ...todo, title: newTitle };
@@ -30,7 +39,12 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
     setTodoList(editedTodoList);
   }
 
-  function editTodo(id, newTitle, newContent, newDueDate) {
+  function editTodo(
+    id: number,
+    newTitle: string,
+    newContent: string,
+    newDueDate: Date
+  ) {
     //title cannot be empty
     if (newTitle.length < 1) {
       return;
@@ -44,6 +58,7 @@ const TodoList = ({ todoList, setTodoList, statusView }) => {
           dueDate: newDueDate,
         };
       }
+      return todo;
     });
     setTodoList(editedTodoList);
   }
