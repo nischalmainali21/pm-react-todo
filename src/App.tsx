@@ -25,13 +25,15 @@ export type AddTodoFunction = (
   dueDate: Date | null
 ) => void;
 
+export type StatusViewType = "all" | "complete" | "active";
+
 function App() {
   const [todoList, setTodoList] = useState<TodoType[]>([]);
   const [todo, setTodo] = useState<TodoInputType>({
     title: "",
     content: "",
   });
-  const [statusView, setStatusView] = useState("all");
+  const [statusView, setStatusView] = useState<StatusViewType>("all");
 
   function addTodo(
     todoTitle: string,

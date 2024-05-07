@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { StatusViewType } from "../App";
+
 import { cn } from "@/lib/utils";
 
 import {
@@ -19,7 +21,12 @@ import { ListFilter } from "lucide-react";
 
 import { Check } from "lucide-react";
 
-const FILTEROPTIONS = [
+type FilterOptionType =
+  | { value: "active"; label: "Active" }
+  | { value: "complete"; label: "Complete" }
+  | { value: "all"; label: "All" };
+
+const FILTEROPTIONS: FilterOptionType[] = [
   {
     value: "active",
     label: "Active",
@@ -34,7 +41,12 @@ const FILTEROPTIONS = [
   },
 ];
 
-const TodoFilter = ({ statusView, setStatusView }) => {
+interface TodoFilterProps {
+  statusView: StatusViewType;
+  setStatusView: React.Dispatch<React.SetStateAction<StatusViewType>>;
+}
+
+const TodoFilter = ({ statusView, setStatusView }: TodoFilterProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -62,7 +74,7 @@ const TodoFilter = ({ statusView, setStatusView }) => {
               <CommandItem
                 key={filterItem.value}
                 value={filterItem.value}
-                onSelect={(currentValue) => {
+                onSelect={(currentValue: StatusViewType) => {
                   // if it is empty or any other value, set the selected value
                   // if the selected value is already selected, reset the value state
                   setStatusView(
@@ -74,7 +86,7 @@ const TodoFilter = ({ statusView, setStatusView }) => {
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    statusView === FILTEROPTIONS.value
+                    statusView === filterItem.value
                       ? "opacity-100"
                       : "opacity-0"
                   )}
